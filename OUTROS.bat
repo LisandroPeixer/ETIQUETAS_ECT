@@ -45,20 +45,25 @@ color 2F
 ::_________________________________________________________
 
   echo DIGITE 1 PARA MAL_ENCAMINHADO 
-  echo        2 PARA DEVOLUCAO_A_PEDIDO
+  echo        2 PARA RECUSADO
+  echo        3 PARA DEVOLUCAO_A_PEDIDO
   set /p MALDEV=
 
   if %MALDEV% == 1 (
     set SERVICO= MAL_ENCAMINHADO
-    GOTO FINAL
-  ) 
+    GOTO FINAL )
+
   if %MALDEV% == 2 (
+    set SERVICO= RECUSADO
+    GOTO FINAL ) 
+
+  if %MALDEV% == 3 (
     set SERVICO= DEVOLUCAO_A_PEDIDO
     ) else ( 
     echo opcao invalida tente novamente 
     pause
-    goto INICIO
-    )
+    goto INICIO )
+
   :FINAL
   echo.   
   echo SERVICO %SERVICO%
