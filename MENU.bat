@@ -48,6 +48,7 @@ color 1E
   echo        5 PARA OUTROS
   echo        6 PARA REFUGO
   echo        7 PARA SROWEB
+  echo        8 PARA SROWEB_cod
   set /p ESCOLHA=
 
   if %ESCOLHA% == 1 (
@@ -70,6 +71,9 @@ color 1E
   )
     if %ESCOLHA% == 7 (
     call SROWEB.bat
+  )
+    if %ESCOLHA% == 8 (
+    call SROWEB_cod.bat
   ) else ( 
     echo opcao invalida tente novamente 
     pause
