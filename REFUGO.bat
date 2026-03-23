@@ -130,7 +130,7 @@ color 4F
   echo          3 - Para adicionar um novo REFUGO
   echo          4 - Para atualizar um REFUGO
   echo          5 - Para BACKUP
-  echo          6 - Para voltar ao MENU
+  ::echo          6 - Para voltar ao MENU
 
    set /p ACAO= 
   if %ACAO%==1 (GOTO PESQUISA)
@@ -204,13 +204,14 @@ color 4F
   ::type cadastroBKP.db
   echo Deseja imprimir?
   echo Digite:  1  (para imprimir)
-  echo Digite:  2  (para planilha)  
-  echo          3  (para sair)
+  echo Digite:  2  (para planilha) 
+  echo Digite:  3  (para atualizar Banco de dados)  
+  echo          4  (para sair)
    set SIM= 0
    set /p SIM= 
 
   if %SIM%==1 (
-    echo "<html><head><title></title><meta charset="utf-8"/><style>html, body {margin: -30px 0px 0px -12px; padding: 0px;} table, th, td {margin: 15px; padding: 0px; font-size:15px; width:300px; border: 1px solid black; border-collapse: collapse; text-align:center;} #sequencia{font-size:60px;} div {page-break-after:always;} div:last-child {page-break-after:avoid;} </style></head><body><div><table align=center>" > impressao.html
+    echo "<html><head><title></title><meta charset="utf-8"/><style>html, body {margin: -20px 0px 0px -5px; padding: 0px;} table, th, td {margin: 15px; padding: 0px; font-size:15px; width:300px; border: 1px solid black; border-collapse: collapse; text-align:center;} #sequencia{font-size:60px;} div {page-break-after:always;} div:last-child {page-break-after:avoid;} </style></head><body><div><table align=center>" > impressao.html
 
     for /f "tokens=5,1,2,3,4,5 delims=;" %%A in (cadastro.db) do (
       echo "<tr><td>%%A</td><td>%%B</td><td>%%C</td><td>%%D</td><td>%%E</td></tr>" >> impressao.html
@@ -224,9 +225,15 @@ color 4F
   if %SIM%==2 (
     type cadastro.db > cadastro.csv
     start cadastro.csv 
-    GOTO INICIO )	
+    PAUSE
+    GOTO INICIO )
 
   if %SIM%==3 (
+    notepad cadastro.db
+    PAUSE 
+    GOTO INICIO )	
+
+  if %SIM%==4 (
     GOTO INICIO
     ) else (
       echo opcao invalida tente novamente
@@ -249,24 +256,23 @@ color 4F
 
    set /a "ORDEM=%ULTIMO%+1" > nul
    echo Digite o objeto: 	
-   set /p "OBJETO=>"
-   echo Digite o nome: 
-   set /p "NOME=>"
-   set NOME="%NOME%"
+   set /p "OBJETO=>" 
 
    if %OBJETO% == 0 (
     echo opcao invalida tente novamente
     PAUSE
-    GOTO CADASTRO
-   )
+    GOTO INICIO  )
+
+   echo Digite o nome: 
+   set /p "NOME=>"
+
     if %NOME% == 0 (
     echo opcao invalida tente novamente
     PAUSE
-    GOTO CADASTRO
-   )
+    GOTO INICIO )
   
-  echo %OBJETO%;  %DIA%/%MES%/%ANO%;    %SAIDADIA%/%SAIDAMES%/%SAIDAANO%;    %ORDEM%;    %NOME:"=%; >> cadastro.db
-   
+    echo %OBJETO%;  %DIA%/%MES%/%ANO%;    %SAIDADIA%/%SAIDAMES%/%SAIDAANO%;    %ORDEM%;    %NOME:"=%; >> cadastro.db
+ 
 ::__________________________________________________________
 ::algoritmo para gerar etiquetas
 ::_________________________________________________________
@@ -317,7 +323,7 @@ color 4F
      if %OBJATUALIZAR% == 0 (
     echo opcao invalida tente novamente
     PAUSE
-    GOTO ATUALIZAR
+    GOTO INICIO
    )
   type cadastro.db | find /i "%OBJATUALIZAR%" /v > delete.txt
   type delete.txt > cadastro.db
