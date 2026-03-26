@@ -256,23 +256,24 @@ color 4F
 
    set /a "ORDEM=%ULTIMO%+1" > nul
    echo Digite o objeto: 	
-   set /p "OBJETO=>" 
+   set /p "OBJETO=>"
+   echo Digite o nome: 
+   set /p "NOME=>"
+   set NOME="%NOME%"
 
    if %OBJETO% == 0 (
     echo opcao invalida tente novamente
     PAUSE
-    GOTO INICIO  )
-
-   echo Digite o nome: 
-   set /p "NOME=>"
-
+    GOTO INICIO
+   )
     if %NOME% == 0 (
     echo opcao invalida tente novamente
     PAUSE
-    GOTO INICIO )
+    GOTO INICIO
+   )
   
-    echo %OBJETO%;  %DIA%/%MES%/%ANO%;    %SAIDADIA%/%SAIDAMES%/%SAIDAANO%;    %ORDEM%;    %NOME:"=%; >> cadastro.db
- 
+  echo %OBJETO%;  %DIA%/%MES%/%ANO%;    %SAIDADIA%/%SAIDAMES%/%SAIDAANO%;    %ORDEM%;    %NOME:"=%; >> cadastro.db
+   
 ::__________________________________________________________
 ::algoritmo para gerar etiquetas
 ::_________________________________________________________
